@@ -41,7 +41,9 @@ module.exports = {
         // allow debugger during development
         'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
         //缩进风格.默认4，否则会报错
-        "indent": [2, 4],
+        "indent": [2, 4, {
+            'SwitchCase': 1 // 针对switch case的缩进
+        }],
         // console的使用规则
         "no-console": [0, { allow: ["warn", "error"] }],
         // 语句强制分号结尾
