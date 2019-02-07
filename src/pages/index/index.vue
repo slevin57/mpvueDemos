@@ -23,9 +23,6 @@
       <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy">
     </form>
     <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a>
-    <div class="sec-navbar">
-      <navigation-bar :title="'videoTitle'" :back-visible="true" :home-path="'/pages/logs/main'"></navigation-bar>
-    </div>
   </div>
 </template>
 
@@ -74,6 +71,12 @@ export default {
 </script>
 
 <style scoped>
+.sec-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+}
 .userinfo {
   display: flex;
   flex-direction: column;

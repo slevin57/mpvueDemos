@@ -9,7 +9,7 @@
 	},
 	"miniprogramRoot": "dist/wx/",
 	"compileType": "miniprogram",
-	"appid": "touristappid",
+	"appid": "wx8526abc14fb3167c",
 	"projectname": "mpuvedemos",
 	"condition": {
 		"search": {
