@@ -1,11 +1,11 @@
 <template>
     <div>
-        <section class="sec-nav-fixed">
+        <section class="sec-nav">
             <navigation-bar :title="videoTitle"
             :navBackgroundColor="'pink'"
             :titleColor="'green'"
             :back-visible="true"
-            :home-path="'/pages/logs/main'"></navigation-bar>
+            :home-path="'/pages/index/main'"></navigation-bar>
         </section>
         <section class="content">
             这里是内容
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import navigationBar from '../../components/navigationBar/index.vue';
+import navigationBar from '../../components/navigationBar.vue';
 export default {
     components: {
         navigationBar,
@@ -27,11 +27,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-// .sec-nav-fixed{
-    // position: fixed;
-    // top: 0;
-    // left: 0;
-// }
 .content {
     width: 100vw;
     height: 150vh;

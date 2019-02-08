@@ -1,29 +1,10 @@
 <template>
-  <div class="container" @click="clickHandle('test click', $event)">
-    <div class="userinfo" @click="bindViewTap">
-      <img
-        class="userinfo-avatar"
-        v-if="userInfo.avatarUrl"
-        :src="userInfo.avatarUrl"
-        background-size="cover"
-      >
-      <div class="userinfo-nickname">
-        <card :text="userInfo.nickName"></card>
-      </div>
+    <div>
+        <ul class="list">
+            <li><a href="/pages/navigation/main" >自定义导航</a></li>
+            <li><a href="/pages/fullPlayer/main" >沉浸式视频播放页</a></li>
+        </ul>
     </div>
-
-    <div class="usermotto">
-      <div class="user-motto">
-        <card :text="motto"></card>
-      </div>
-    </div>
-
-    <form class="form-container">
-      <input type="text" class="form-control" v-model="motto" placeholder="v-model">
-      <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy">
-    </form>
-    <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a>
-  </div>
 </template>
 
 <script>
@@ -70,46 +51,12 @@ export default {
 };
 </script>
 
-<style scoped>
-.sec-navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-}
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-}
-
-.userinfo-nickname {
-  color: #aaa;
-}
-
-.usermotto {
-  margin-top: 150px;
-}
-
-.form-control {
-  display: block;
-  padding: 0 12px;
-  margin-bottom: 5px;
-  border: 1px solid #ccc;
-}
-
-.counter {
-  display: inline-block;
-  margin: 10px auto;
-  padding: 5px 10px;
-  color: blue;
-  border: 1px solid blue;
+<style lang="scss" scoped>
+.list {
+    width: 100vw;
+    padding: 30rpx;
+    li {
+        padding: 10rpx 0;
+    }
 }
 </style>
