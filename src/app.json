@@ -4,7 +4,6 @@
         "pages/fullPlayer/main",
         "pages/navigation/main",
         "pages/clipImage/main",
-        "pages/logs/main",
         "pages/counter/main"
     ],
   "window": {
