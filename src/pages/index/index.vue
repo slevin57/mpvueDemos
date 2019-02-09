@@ -3,6 +3,7 @@
         <ul class="list">
             <li><a href="/pages/navigation/main" >自定义导航</a></li>
             <li><a href="/pages/fullPlayer/main" >沉浸式视频播放页</a></li>
+            <li><a href="/pages/clipImage/main" >图片按比例裁切</a></li>
         </ul>
     </div>
 </template>

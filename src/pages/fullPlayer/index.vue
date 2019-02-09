@@ -8,9 +8,8 @@
             :home-path="'/pages/index/main'"></navigation-bar>
         </section>
         <section class="sec-content">
-            <!-- <video src="https://resources.laihua.com/2018-12-26/ebacec00-08d7-11e9-936f-39088507bb24.mp4"></video> -->
             <video object-fit="cover" autoplay
-                src="https://resources.laihua.com/2018-12-27/f769fe00-09b5-11e9-b86a-d38da1643688.mp4"></video>
+                src="https://resources.laihua.com/2018-12-26/ebacec00-08d7-11e9-936f-39088507bb24.mp4"></video>
         </section>
     </div>
 </template>
