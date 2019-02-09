@@ -28,7 +28,7 @@
 <script>
 export default {
     props: {
-    // 导航栏背景色
+        // 导航栏背景色
         navBackgroundColor: {
             default: "#ffffff"
         },
@@ -54,15 +54,12 @@ export default {
     },
     data() {
         return {
-            video: {},
-            windowHeight: "",
-            screenHeight: "",
-            statusBarHeight: "",
-            titleBarHeight: "",
-            navBarHeight: "",
+            statusBarHeight: "", // 状态栏高度
+            titleBarHeight: "", // 标题栏高度
+            navBarHeight: "", // 导航栏总高度
+            platform: "",
             model: "",
             brand: "",
-            platform: "",
             system: ""
         };
     },
@@ -71,12 +68,10 @@ export default {
         wx.getSystemInfo({
             success(system) {
                 console.log(`system:`, system);
-                self.windowHeight = system.windowHeight;
-                self.screenHeight = system.screenHeight;
                 self.statusBarHeight = system.statusBarHeight;
+                self.platform = system.platform;
                 self.model = system.model;
                 self.brand = system.brand;
-                self.platform = system.platform;
                 self.system = system.system;
 
                 let platformReg = /ios/i;
