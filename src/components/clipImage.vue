@@ -12,19 +12,25 @@ export default {
             type: String,
             required: true,
         },
-        tw: {
-            type: Number,
-            default: 350,
-        },
-        th: {
-            type: Number,
-            default: 280,
+        ratio: {
+            type: Array,
+            default: function () {
+                return [5,5];
+            }
         }
     },
     data () {
         return {
 
         };
+    },
+    computed: {
+        tw () {
+            return this.ratio[0]*70;
+        },
+        th () {
+            return this.ratio[1]*70;
+        }
     },
     watch: {
         url (nv) {
@@ -87,57 +93,19 @@ export default {
                 const ctx = wx.createCanvasContext('canvas');
                 // 原始图片宽高比
                 const sr = sw / sh;
-                // 目标图片比例
+                // 目标图片宽高比
                 const tr = tw / th;
-                // 指定画布与原始图片宽度比例
-                const wr = tw / sw;
-                // 指定画布与原始图片高度比例
-                const hr = th / sh;
 
                 // 原始图片宽高比例为指定比例，直接缩放即可
                 if (sr == tr){
                     console.log(`0:`,0);
                     ctx.drawImage(url,0,0,sw,sh, 0,0,tw,th);
-                } else {
-
-                    // 原图宽高均大于指定大小，这种情况下哪个比例大(wr hr)哪个是短边
-                    if (sw > tw && sh > th){
-                        // 宽度为短边
-                        if  (wr > hr ){
-                            console.log(`1:`,1);
-                            ctx.drawImage(url, 0,(sh-sw/tr)/2,sw,sw/tr, 0,0,tw,th);
-                        }
-                        // 高度为短边
-                        else {
-                            console.log(`2:`,2);
-                            ctx.drawImage(url, (sw-sh*tr)/2,0,sh*tr,sh, 0,0,tw,th);
-                        }
-                    }
-                    // 原图宽高均小于指定大小，这种情况下哪个比例大(wr hr)哪个是短边
-                    else if (sw < tw && sh < th) {
-                        // 宽度为短边
-                        if (wr > hr) {console.log(`3:`,3);
-                            ctx.drawImage(url, 0,(sh-sw/tr)/2,sw,sw/tr, 0,0,tw,th);
-                        }
-                        // 高度为短边
-                        else {console.log(`4:`,4);
-                            ctx.drawImage(url, (sw-sh*tr)/2,0,sh*tr,sh, 0,0,tw,th);
-                        }
-                    }
-                    // 原图只有一边（宽或者高）大于指定大小
-                    else {
-                        // 宽短高大(宽度为短边)
-                        if (wr > hr) {
-                            console.log(`5:`,5);
-                            ctx.drawImage(url, 0,(sh-sw/tr)/2,sw,sw/tr, 0,0,tw,th);
-                        }
-                        // 宽大高小（高度为短边）
-                        else {
-                            console.log(`6:`,6);
-                            // ctx.drawImage(url,(sw-sh*tr)/2,0,sh*tr,sh, 0,0,tw,th);
-                            ctx.drawImage(url, (sw-sh*tr)/2,0,sh*tr,sh, 0,0,tw,th);
-                        }
-                    }
+                } else if (sr > tr) {
+                    console.log(`图片比例大于指定比例，也就是高度为短边`);
+                    ctx.drawImage(url, (sw-sh*tr)/2,0,sh*tr,sh, 0,0,tw,th);
+                } else if (sr < tr) {
+                    console.log(`图片比例小于指定比例，也就是宽度为短边`);
+                    ctx.drawImage(url, 0,(sh-sw/tr)/2,sw,sw/tr, 0,0,tw,th);
                 }
 
                 ctx.draw(false,() => {
