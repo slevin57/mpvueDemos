@@ -63,7 +63,6 @@ export default {
             // const imgSrc4 = 'https://resources.laihua.com/2019-1-25/8d490140-2082-11e9-bb54-bfed9661fbd9.png';
             // const imgSrc5 = 'https://resources.laihua.com/2019-1-26/6f5e4ad0-2133-11e9-97a0-49d3e303954e.png';
             // const imgSrc6 = 'https://resources.laihua.com/2019-1-26/1f438c40-2133-11e9-97a0-49d3e303954e.png';
-            console.log(`44:`,44);
             const self = this;
             wx.getImageInfo({
                 src: imgSrc,
@@ -111,7 +110,7 @@ export default {
                         // 高度为短边
                         else {
                             console.log(`2:`,2);
-                            ctx.drawImage(url, (sw-tr*sh)/2,0,tr*sh,sh, 0,0,tw,th);
+                            ctx.drawImage(url, (sw-sh*tr)/2,0,sh*tr,sh, 0,0,tw,th);
                         }
                     }
                     // 原图宽高均小于指定大小，这种情况下哪个比例大(wr hr)哪个是短边
@@ -127,15 +126,16 @@ export default {
                     }
                     // 原图只有一边（宽或者高）大于指定大小
                     else {
-                        // 宽短高大
+                        // 宽短高大(宽度为短边)
                         if (wr > hr) {
                             console.log(`5:`,5);
                             ctx.drawImage(url, 0,(sh-sw/tr)/2,sw,sw/tr, 0,0,tw,th);
                         }
-                        // 宽大高小
+                        // 宽大高小（高度为短边）
                         else {
                             console.log(`6:`,6);
-                            ctx.drawImage(url,(sw-sh*tr)/2,0,sh*tr,sh, 0,0,tw,th);
+                            // ctx.drawImage(url,(sw-sh*tr)/2,0,sh*tr,sh, 0,0,tw,th);
+                            ctx.drawImage(url, (sw-sh*tr)/2,0,sh*tr,sh, 0,0,tw,th);
                         }
                     }
                 }
