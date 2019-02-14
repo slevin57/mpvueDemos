@@ -15,7 +15,7 @@ export default {
         ratio: {
             type: Array,
             default: function () {
-                return [5,5];
+                return [5,4];
             }
         }
     },
