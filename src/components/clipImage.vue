@@ -21,17 +21,11 @@ export default {
     },
     data () {
         return {
-
+            tw: 0, // 目标宽度（画布宽度）
+            th: 0, // 目标高度（画布高度）
         };
     },
-    computed: {
-        tw () {
-            return this.ratio[0]*70;
-        },
-        th () {
-            return this.ratio[1]*70;
-        }
-    },
+    computed: { },
     watch: {
         url (nv) {
             this.getImageInfo(nv);
@@ -39,6 +33,7 @@ export default {
     },
     onLoad () {
         console.log('clipImage onLoad');
+        this.getImageInfo(this.url);
     },
     onShow () {
         console.log('clipImage onShow');
@@ -48,8 +43,6 @@ export default {
     },
     mounted() {
         console.log('clipImage mounted');
-        console.log(`this.url:`,this.url);
-        this.getImageInfo(this.url);
     },
     onHide () {
         console.log('clipImage onHide');
@@ -73,9 +66,28 @@ export default {
             wx.getImageInfo({
                 src: imgSrc,
                 success: (res) => {
-                    console.log(`res:`,res);
+                    console.log(`图片信息:`,res);
+                    const sw = res.width; //图片宽度
+                    const sh = res.height; //图片高度
+                    const sr = sw / sh; // 原始图片比例
+                    const tr = self.ratio[0] / self.ratio[1];  // 目标比例
+                    /**
+                     * 通过图片比例与指定比例的比较计算画布大小
+                     * 图片比例大，说明图片高度为短边，那么图片高度便是画布高度，再根据指定宽高比算出画布宽度；
+                     * 图片比例小，说明图片宽度为短边，剩下同理；
+                     */
+                    if (sr > tr){
+                        self.th = sh;
+                        self.tw = tr * sh;
+                    }  else if (sr < tr) {
+                        self.tw = sw;
+                        self.th = sw / tr;
+                    }  else {
+                        self.tw = sw;
+                        self.th = sh;
+                    }
                     // 执行封面裁切
-                    clipImage(res.path,res.width,res.height,self.tw,self.th, (url) => {
+                    clipImage(res.path,sw,sh,self.tw,self.th, (url) => {
                         console.log(`clipOver url:`,url);
                         self.$emit('clipOver',url);
                     });
@@ -96,15 +108,12 @@ export default {
                 // 目标图片宽高比
                 const tr = tw / th;
 
-                // 原始图片宽高比例为指定比例，直接缩放即可
                 if (sr == tr){
                     console.log(`0:`,0);
                     ctx.drawImage(url,0,0,sw,sh, 0,0,tw,th);
                 } else if (sr > tr) {
-                    console.log(`图片比例大于指定比例，也就是高度为短边`);
                     ctx.drawImage(url, (sw-sh*tr)/2,0,sh*tr,sh, 0,0,tw,th);
                 } else if (sr < tr) {
-                    console.log(`图片比例小于指定比例，也就是宽度为短边`);
                     ctx.drawImage(url, 0,(sh-sw/tr)/2,sw,sw/tr, 0,0,tw,th);
                 }
 
